@@ -1,0 +1,24 @@
+{% extends 'usuario/base_usuario.html' %}
+{% block titulo %}Checkout{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="tituloproducto">Finalizar compra</h1>
+<div class="linea"></div>
+
+<div class="card-resumen">
+    <p>Subtotal: ${{ subtotal }}</p>
+    <p>Impuestos (16%): ${{ impuestos }}</p>
+    <p class="totalapagar">Total a pagar: ${{ total }}</p>
+</div>
+
+<form class="formulario-simple" method="post">
+    {% csrf_token %}
+    {{ formulario.metodo_pago.label_tag }}{{ formulario.metodo_pago }}<br>
+    {{ formulario.calle_envio.label_tag }}{{ formulario.calle_envio }}<br>
+    {{ formulario.colonia_envio.label_tag }}{{ formulario.colonia_envio }}<br>
+    {{ formulario.ciudad_envio.label_tag }}{{ formulario.ciudad_envio }}<br>
+    {{ formulario.numero_envio.label_tag }}{{ formulario.numero_envio }}<br>
+    {{ formulario.notas.label_tag }}{{ formulario.notas }}<br>
+    <button class="btn-primario" type="submit">Confirmar compra</button>
+</form>
+{% endblock %}

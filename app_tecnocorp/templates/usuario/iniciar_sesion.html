@@ -1,0 +1,13 @@
+{% extends 'usuario/base_usuario.html' %}
+{% block titulo %}Iniciar sesión{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">Iniciar sesión</h1>
+<form method="post" class="formulario-simple">
+    {% csrf_token %}
+    {{ formulario.usuario.label_tag }}{{ formulario.usuario }}
+    {{ formulario.contraseña.label_tag }}{{ formulario.contraseña }}
+    <button class="btn-primario" type="submit">Entrar</button>
+</form>
+<p>¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate</a></p>
+{% endblock %}

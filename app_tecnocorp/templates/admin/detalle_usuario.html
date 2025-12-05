@@ -1,0 +1,18 @@
+{% extends 'admin/base_admin.html' %}
+{% block titulo %}Detalle usuario{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">Perfil del usuario</h1>
+<section>
+    <p><strong>Nombre:</strong> {{ usuario_obj.nombre }}</p>
+    <p><strong>Usuario:</strong> {{ usuario_obj.usuario }}</p>
+    <p><strong>Correo:</strong> {{ usuario_obj.correo }}</p>
+    <p><strong>Ciudad:</strong> {{ usuario_obj.ciudad }}</p>
+    <p><strong>Dirección:</strong> {{ usuario_obj.calle }} #{{ usuario_obj.numero_casa }}, {{ usuario_obj.colonia }}</p>
+</section>
+
+<section style="margin-top:18px;">
+    <h2 class="titulo">Pedidos</h2>
+    {% include 'usuario/pedidos_usuario.html' with pedidos=pedidos %}
+</section>
+{% endblock %}

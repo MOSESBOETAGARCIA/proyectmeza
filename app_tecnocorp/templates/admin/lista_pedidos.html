@@ -1,0 +1,44 @@
+{% extends 'admin/base_admin.html' %}
+{% block titulo %}Pedidos{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">Pedidos</h1>
+
+<table class="tabla-simple">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Detalles</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Actualizar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.id_pedido }}</td>
+                <td><a href="{% url 'admin_detalle_usuario' pedido.usuario.pk %}">{{ pedido.usuario.usuario }}</a></td>
+                <td>{{ pedido.detalles }}</td>
+                <td>${{ pedido.precio }}</td>
+                <td>{{ pedido.estado }}</td>
+                <td>
+                    <form method="post" action="{% url 'admin_actualizar_estado_pedido' pedido.pk %}">
+                        {% csrf_token %}
+                        <select name="estado">
+                            {% for valor, etiqueta in pedido.ESTADOS %}
+                                <option value="{{ valor }}"{% if pedido.estado == valor %} selected{% endif %}>{{ etiqueta }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="datetime-local" name="fecha_entrega" value="{{ pedido.fecha_entrega|date:'Y-m-d\\TH:i' }}">
+                        <button class="btn-secundario" type="submit">Guardar</button>
+                    </form>
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="6">No hay pedidos registrados.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

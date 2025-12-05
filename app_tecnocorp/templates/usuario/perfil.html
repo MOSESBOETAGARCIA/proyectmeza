@@ -1,0 +1,20 @@
+{% extends 'usuario/base_usuario.html' %}
+{% block titulo %}Mi perfil{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">Mi perfil</h1>
+<section>
+    <p><strong>Nombre:</strong> {{ usuario_actual.nombre }}</p>
+    <p><strong>Usuario:</strong> {{ usuario_actual.usuario }}</p>
+    <p><strong>Correo:</strong> {{ usuario_actual.correo }}</p>
+    <p><strong>Ciudad:</strong> {{ usuario_actual.ciudad }}</p>
+    <p><strong>Calle:</strong> {{ usuario_actual.calle }}</p>
+    <p><strong>Colonia:</strong> {{ usuario_actual.colonia }}</p>
+    <p><strong>Número de casa:</strong> {{ usuario_actual.numero_casa }}</p>
+</section>
+
+<section style="margin-top:20px;">
+    <h2 class="titulo">Pedidos recientes</h2>
+    {% include 'usuario/pedidos_usuario.html' %}
+</section>
+{% endblock %}

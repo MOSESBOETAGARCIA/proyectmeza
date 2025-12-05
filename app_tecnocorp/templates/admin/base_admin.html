@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Panel Tecnocorp{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="header-principal">
+        <div class="logo">Panel Tecnocorp</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="{% url 'panel_admin' %}">Resumen</a></li>
+                <li class="menu-desplegable">
+                    <span>Productos</span>
+                    <ul class="submenu submenu-admin">
+                        <li><a href="{% url 'admin_lista_productos' 'pc' %}">PC Armadas</a></li>
+                        <li><a href="{% url 'admin_lista_productos' 'teclado' %}">Teclados</a></li>
+                        <li><a href="{% url 'admin_lista_productos' 'monitor' %}">Monitores</a></li>
+                        <li><a href="{% url 'admin_lista_productos' 'mouse' %}">Mouses</a></li>
+                        <li><a href="{% url 'admin_lista_productos' 'audifonos' %}">Audífonos</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'admin_lista_proveedores' %}">Proveedores</a></li>
+                <li><a href="{% url 'admin_lista_pedidos' %}">Pedidos</a></li>
+                <li><a href="{% url 'perfil_usuario' %}">Volver a la tienda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenedor">
+        <div class="mensajes">
+            {% for mensaje in messages %}
+                <p class="mensaje-{{ mensaje.tags }}">{{ mensaje }}</p>
+            {% endfor %}
+        </div>
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer class="footer-principal">
+        Moises Boeta Garcia - Construye Aplicaciones Web
+    </footer>
+</body>
+</html>

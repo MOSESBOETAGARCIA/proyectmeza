@@ -1,0 +1,11 @@
+{% extends 'admin/base_admin.html' %}
+{% block titulo %}Formulario productos{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">{{ titulo }}</h1>
+<form method="post" enctype="multipart/form-data" class="formulario-simple">
+    {% csrf_token %}
+    {{ formulario.as_p }}
+    <button class="btn-primario" type="submit">Guardar</button>
+</form>
+{% endblock %}

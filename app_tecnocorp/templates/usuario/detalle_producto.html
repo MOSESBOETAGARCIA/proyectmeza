@@ -1,0 +1,23 @@
+{% extends 'usuario/base_usuario.html' %}
+{% block titulo %}Detalle del producto{% endblock %}
+{% block contenido %}
+{% load static %}
+<article>
+    <h1 class="tituloproducto">{{ producto.nombre }}</h1>
+    {% if producto.foto %}
+        <img src="{{ producto.foto.url }}" alt="{{ producto.nombre }}" style="width:400px;height:260px;object-fit:cover;">
+    {% endif %}
+    <p>Categoría: {{ producto.categoria }}</p>
+    {% if producto.tamaño %}
+        <p>Tamaño: {{ producto.tamaño }}</p>
+    {% endif %}
+    {% if producto.color %}
+        <p>Color: {{ producto.color }}</p>
+    {% endif %}
+    <p class="precio">Precio: ${{ producto.precio }}</p>
+    <form method="post" action="{% url 'agregar_al_carrito' tipo producto.pk %}">
+        {% csrf_token %}
+        <button class="btn-primario" type="submit">Agregar al carrito</button>
+    </form>
+</article>
+{% endblock %}

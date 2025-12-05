@@ -1,0 +1,53 @@
+{% extends 'usuario/base_usuario.html' %}
+{% block titulo %}Mi carrito{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">Carrito de compras</h1>
+
+<section class="seccion-carrito">
+    {% if carrito %}
+        <table class="tabla-simple">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio unitario</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for clave, datos in carrito.items %}
+                    <tr>
+                        <td>{{ datos.nombre }}</td>
+                        <td>${{ datos.precio }}</td>
+                        <td>
+                            <form method="post" action="{% url 'actualizar_cantidad_carrito' clave %}">
+                                {% csrf_token %}
+                                <input type="number" name="cantidad" value="{{ datos.cantidad }}" min="1">
+                                <button class="btn-secundario" type="submit">Actualizar</button>
+                            </form>
+                        </td>
+                        <td>${{ datos.cantidad|floatformat:0|add:"0"|floatformat:0 }}</td>
+                        <td>
+                            <a class="btn-secundario" href="{% url 'eliminar_del_carrito' clave %}">Quitar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="card-resumen">
+            <p>Subtotal: ${{ subtotal }}</p>
+            <p>Impuestos (16%): ${{ impuestos }}</p>
+            <p class="precio">Total: ${{ total }}</p>
+            <div style="margin-top:12px;">
+                <a class="btn-primario" href="{% url 'checkout' %}">Proceder al pago</a>
+                <a class="btn-secundario" href="{% url 'vaciar_carrito' %}">Vaciar carrito</a>
+            </div>
+        </div>
+    {% else %}
+        <p>Tu carrito está vacío.</p>
+    {% endif %}
+</section>
+{% endblock %}

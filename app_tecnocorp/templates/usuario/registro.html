@@ -1,0 +1,19 @@
+{% extends 'usuario/base_usuario.html' %}
+{% block titulo %}Registro{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">Crear cuenta</h1>
+<form method="post" class="formulario-simple">
+    {% csrf_token %}
+    {{ formulario.nombre.label_tag }}{{ formulario.nombre }}
+    {{ formulario.usuario.label_tag }}{{ formulario.usuario }}
+    {{ formulario.correo.label_tag }}{{ formulario.correo }}
+    {{ formulario.ciudad.label_tag }}{{ formulario.ciudad }}
+    {{ formulario.calle.label_tag }}{{ formulario.calle }}
+    {{ formulario.colonia.label_tag }}{{ formulario.colonia }}
+    {{ formulario.numero_casa.label_tag }}{{ formulario.numero_casa }}
+    {{ formulario.contraseña.label_tag }}{{ formulario.contraseña }}
+    {{ formulario.confirmar_contraseña.label_tag }}{{ formulario.confirmar_contraseña }}
+    <button class="btn-primario" type="submit">Crear cuenta</button>
+</form>
+{% endblock %}

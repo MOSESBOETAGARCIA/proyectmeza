@@ -1,0 +1,28 @@
+{% extends 'usuario/base_usuario.html' %}
+{% block titulo %}Tecnocorp - Productos{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="tituloproducto">{% if titulo_categoria %}{{ titulo_categoria }}{% else %}Nuestros Productos{% endif %}</h1>
+<div class="linea"></div>
+{% if termino %}
+    <p>Resultados para «<span class="resaltado">{{ termino }}</span>».</p>
+{% endif %}
+
+<div class="grid-productos">
+    {% for item in productos %}
+        <div class="tarjeta-producto">
+            {% if item.objeto.foto %}
+                <img src="{{ item.objeto.foto.url }}" alt="{{ item.objeto.nombre }}">
+            {% else %}
+                <img src="{% static 'img/placeholder.png' %}" alt="Sin imagen">
+            {% endif %}
+            <h3 class="titulo">{{ item.objeto.nombre }}</h3>
+            <p>{{ item.objeto.categoria }}</p>
+            <p class="precio">${{ item.objeto.precio }}</p>
+            <a class="btn-primario" href="{% url 'detalle_producto' item.tipo item.pk %}">Detalle</a>
+        </div>
+    {% empty %}
+        <p>No encontramos productos.</p>
+    {% endfor %}
+</div>
+{% endblock %}

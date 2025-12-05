@@ -1,0 +1,16 @@
+{% extends 'admin/base_admin.html' %}
+{% block titulo %}Resumen administrativo{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">Resumen general</h1>
+<ul>
+    <li>PC Armadas: {{ totales.pc }}</li>
+    <li>Teclados: {{ totales.teclado }}</li>
+    <li>Monitores: {{ totales.monitor }}</li>
+    <li>Mouses: {{ totales.mouse }}</li>
+    <li>Audífonos: {{ totales.audifonos }}</li>
+    <li>Proveedores: {{ totales.proveedores }}</li>
+    <li>Pedidos: {{ totales.pedidos }}</li>
+    <li>Usuarios: {{ totales.usuarios }}</li>
+</ul>
+{% endblock %}

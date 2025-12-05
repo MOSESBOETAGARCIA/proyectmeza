@@ -1,0 +1,35 @@
+{% extends 'admin/base_admin.html' %}
+{% block titulo %}Listado de productos{% endblock %}
+{% block contenido %}
+{% load static %}
+<h1 class="titulo">{{ titulo }}</h1>
+<a class="btn-primario" href="{% url 'admin_crear_producto' tipo %}">Nuevo</a>
+
+<table class="tabla-simple" style="margin-top:12px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for objeto in objetos %}
+            <tr>
+                <td>{{ objeto.pk }}</td>
+                <td>{{ objeto.nombre }}</td>
+                <td>{{ objeto.categoria }}</td>
+                <td>${{ objeto.precio }}</td>
+                <td>
+                    <a class="btn-secundario" href="{% url 'admin_editar_producto' tipo objeto.pk %}">Editar</a>
+                    <a class="btn-secundario" href="{% url 'admin_eliminar_producto' tipo objeto.pk %}">Eliminar</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="5">Sin registros.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

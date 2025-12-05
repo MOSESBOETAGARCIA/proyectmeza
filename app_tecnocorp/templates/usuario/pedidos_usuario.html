@@ -1,0 +1,27 @@
+{% if pedidos %}
+{% load static %}
+<table class="tabla-simple">
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>Detalle</th>
+            <th>Precio</th>
+            <th>Fecha pedido</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pedido in pedidos %}
+            <tr>
+                <td>#{{ pedido.id_pedido }}</td>
+                <td>{{ pedido.detalles }}</td>
+                <td>${{ pedido.precio }}</td>
+                <td>{{ pedido.fecha_pedido }}</td>
+                <td>{{ pedido.estado }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>No tienes pedidos registrados.</p>
+{% endif %}

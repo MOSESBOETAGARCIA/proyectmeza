@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Tecnocorp{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="header-principal">
+        <div class="logo">Tecnocorp</div>
+        <nav class="nav">
+            <ul>
+                <div>
+                    <li><a href="{% url 'index' %}">Inicio</a></li>
+                    <li class="menu-desplegable">
+                        <span>Productos</span>
+                        <ul class="submenu">
+                            <li><a href="{% url 'productos_por_tipo' 'pc' %}">PC Armadas</a></li>
+                            <li><a href="{% url 'productos_por_tipo' 'teclado' %}">Teclados</a></li>
+                            <li><a href="{% url 'productos_por_tipo' 'monitor' %}">Monitores</a></li>
+                            <li><a href="{% url 'productos_por_tipo' 'mouse' %}">Mouses</a></li>
+                            <li><a href="{% url 'productos_por_tipo' 'audifonos' %}">Audífonos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'lista_productos' %}">Todos los productos</a></li>
+                    <li><a href="{% url 'ver_carrito' %}">Carrito</a></li>
+                </div>
+                <div class="buscador">
+                    <form method="get" action="{% url 'buscar_productos' %}">
+                        {{ formulario_busqueda.busqueda }}
+                        <button class="btn-primario" type="submit">Buscar</button>
+                    </form>
+                </div>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'perfil_usuario' %}">Mi perfil</a></li>
+                <li><a href="{% url 'cerrar_sesion' %}">Cerrar sesión</a></li>
+                {% if request.user.es_admin %}
+                <li><a href="{% url 'panel_admin' %}">Panel admin</a></li>
+                {% endif %}
+                {% else %}
+                <div class="inicio_sesion"><li><a href="{% url 'iniciar_sesion' %}">Iniciar sesión</a></li></div>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenedor">
+        <div class="mensajes">
+            {% for mensaje in messages %}
+                <p class="mensaje-{{ mensaje.tags }}">{{ mensaje }}</p>
+            {% endfor %}
+        </div>
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer class="footer-principal">
+        Moises Boeta Garcia - Construye Aplicaciones Web
+    </footer>
+</body>
+</html>
